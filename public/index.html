@@ -2,6 +2,25 @@
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
 <html ng-app="scotchTodo">
+<style>
+	.demo 
+	{
+		border:1px solid #C0C0C0;
+		border-collapse:collapse;
+		padding:5px;
+	}
+	.demo th {
+		border:1px solid #C0C0C0;
+		padding:5px;
+		background:#F0F0F0;
+		
+	}
+	.demo td 
+	{
+		border:1px solid #C0C0C0;
+		padding:5px;
+	}
+</style>
 <head>
 	<!-- META -->
 	<meta charset="utf-8">
@@ -14,9 +33,10 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<style>
 		html 					{ overflow-y:scroll; }
-		body 					{ padding-top:50px; }
-		#todo-list 				{ margin-bottom:30px; }
-		#todo-form 	 			{ margin-bottom:50px; }
+		body 					{ padding-top:30px; }
+		#todo-list 				{ margin-bottom:20px; }
+		#todo-form 	 			{ margin-bottom:20px; }
+		#lastFmTable			{ margin-bottom:20px; }
 	</style>
 
 	<!-- SPELLS -->
@@ -40,8 +60,6 @@
 		<div id="todo-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
-				
-
 				<!-- LOOP OVER THE TODOS IN $scope.todos -->
 				<div class="checkbox" ng-repeat="todo in todos">
 					<label>
@@ -63,15 +81,62 @@
 					<div class="form-group">
 
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-						<input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
+						<input type="text" class="form-control input-lg text-center" placeholder="Add here music album description" ng-model="formData.text">
 					</div>
 
 					<!-- createToDo() WILL CREATE NEW TODOS -->
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add music album manualy </button>
+				
 				</form>
+				
+				<form>
+					<tr>
+					  <td>   
+					   <br>
+					  <div id="artistInputForm" > 
+
+					   <!-- Input box for enter artist name  -->
+						  <form ng-submit="submit()">
+							  Enter artist name and hit enter:
+							  <input type="text" ng-model="formData.artist" name="text" class="form-control input-lg text-center" placeholder="Add here artist name"/>
+							  <br>
+						  <button type="submit" class="btn btn-primary btn-lg"  ng-click="importAlbumsFromLastFM()">	Find given artist music albums</button>
+						 </form>
+					 </div>
+				     
+				      </td>
+						<br>
+						<td>	
+							<br>
+							  <div id="musicAlbumsListDiv" class="btn btn-primary btn-lg" >
+							  <!-- Section for showing albums list and filter it by criteria -->
+							      <br>
+							      Filter : 
+							      <input ng-model="query">	
+							 	  Sort by:
+							      <select ng-model="orderProp">
+							        <option value="artist">Artist</option>
+							        <option value="title">Album title</option>
+							        <option value="title">Price</option>
+							      </select>
+						      <!-- Section for showing albums list and filter it by criteria -->
+						      </div>
+							 <br>
+							 <ul class="albums">
+							 <br>
+							  <li ng-repeat="album in albums | filter:query | orderBy:orderProp ">
+							    <span>Album name : {{album}}</span>
+							  </li>
+							</ul>
+							
+						</td>
+					</tr>
+				</form>
+					
 			</div>
 		</div>
 
+	
 		<div class="text-center text-muted">
 			<p>Application created for rich user-interfaces laboratory : s9717@pjwstk.edu.pl</p>
 		</div>
