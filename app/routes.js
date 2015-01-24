@@ -28,7 +28,8 @@ module.exports = function(app) {
 		Todo.create({
 			text : req.body.text,
 			done : false
-		}, function(err, todo) {
+		}, function(err, todo)
+		{
 			if (err)
 				res.send(err);
 

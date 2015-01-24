@@ -28,9 +28,9 @@
 
 	<title>Node/Angular Music Albums Application</title>
 
-	<!-- SCROLLS -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	
 	<style>
 		html 					{ overflow-y:scroll; }
 		body 					{ padding-top:30px; }
@@ -101,7 +101,9 @@
 							  <input type="text" ng-model="formData.artist" name="text" class="form-control input-lg text-center" placeholder="Add here artist name"/>
 							  <br>
 						  <button type="submit" class="btn btn-primary btn-lg"  ng-click="importAlbumsFromLastFM()">	Find given artist music albums</button>
+						  <button type="submit" class="btn btn-primary btn-lg"  ng-click="addFilterdAlbumsToDb()">	Add filtered values to list of Albums</button>
 						 </form>
+						 
 					 </div>
 				     
 				      </td>
@@ -111,21 +113,17 @@
 							  <div id="musicAlbumsListDiv" class="btn btn-primary btn-lg" >
 							  <!-- Section for showing albums list and filter it by criteria -->
 							      <br>
-							      Filter : 
+							      Filter results by album name : 
 							      <input ng-model="query">	
-							 	  Sort by:
-							      <select ng-model="orderProp">
-							        <option value="artist">Artist</option>
-							        <option value="title">Album title</option>
-							        <option value="title">Price</option>
-							      </select>
+							 
 						      <!-- Section for showing albums list and filter it by criteria -->
 						      </div>
 							 <br>
 							 <ul class="albums">
 							 <br>
-							  <li ng-repeat="album in albums | filter:query | orderBy:orderProp ">
-							    <span>Album name : {{album}}</span>
+							 <!-- "album in albums | filter:query | orderBy:orderProp " -->
+							  <li ng-repeat="album in (filteredItems = (albums | filter:query ))">
+							    <span>Artist and album name : {{formData.artist}} : {{album}}</span>
 							  </li>
 							</ul>
 							
